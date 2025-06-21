@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talk Libras</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <link rel="stylesheet" href="/static/css/animate.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <style>
+        /* Estilo de fundo para o banner */
+        .banner {
+            background-image: url('/static/sign_images/R.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        .banner-text h2 {
+            font-size: 3em;
+            font-weight: 600;
+        }
+        .banner-text h6 {
+            font-size: 1.5em;
+            font-weight: 300;
+        }
+        .banner-text p {
+            font-size: 1.1em;
+        }
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .navbar-nav .nav-link {
+            color: white !important;
+        }
+        /* Estilo da seção de criadores */
+        #creators {
+            background-color: #f8f9fa;
+            padding: 50px 0;
+        }
+        .creator-card {
+            margin-bottom: 30px;
+        }
+        .creator-card img {
+            object-fit: cover;
+            width: 100px; 
+            height: 100px; 
+            object-fit: cover; 
+            border-radius: 50%;
+        }
+
+        /* Estilo para as seções de tradução e ensino */
+        .action-section {
+            position: absolute;
+            top: 5%; /* Ajuste a distância do topo para ficar um pouco acima do translation_section */
+            right: 5%; /* Alinhado à direita da tela */
+            margin-top: 40px; /* Ajuste o valor de margin-top se necessário */
+            text-align: center;
+            width: 100%;
+            max-width: 600px; /* Pode ajustar conforme necessário */
+        }
+        #teach_section {
+            display: none;
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin: 20px;
+            position: absolute;
+            top: 10%; /* Distância do topo */
+            right: 5%; /* Distância da direita */
+        }
+
+        #translation_section {
+            display: none;
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin: 20px;
+            position: absolute;
+            top: 10%; /* Distância do topo */
+            right: 5%; /* Distância da direita */
+        }
+    </style>
+</head>
+
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="fas fa-bars"></span> </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"> <a class="nav-link" href="" data-scroll-nav="0">Home</a> </li>
+        <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="1">Criadores</a> </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- Fim Navbar -->
+
+<!-- Banner -->
+<section class="banner" data-scroll-index='0'>
+    <div class="banner-overlay">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 col-sm-12">
+                    <div class="banner-text">
+                        <h2 class="white">Talk Libras</h2>
+                        <h6 class="white">Seja bem-vindo!</h6>
+                        <p class="banner-text white">
+                            O Talk Libras utiliza machine learning e tecnologias de visão computacional para reconhecer sinais de LIBRAS em tempo real. Os gestos detectados são traduzidos para o português em texto, o caminho inverso também ocorre possibilitando uma conversa bidirecional. Dessa forma, a ferramenta visa facilitar a comunicação entre pessoas com deficiência auditiva e aquelas que não conhecem libras, promovendo acessibilidade em ambientes digitais e integração social para a comunidade surda.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Botões de Ação -->
+<div class="text-center mt-4">
+    <button class="btn btn-primary" onclick="startDetection()">Traduzir Sinais</button>
+    <button class="btn btn-secondary" onclick="showTeachOptions()">Ensinar Sinais</button>
+</div>
+
+<!-- Seção Criadores -->
+<section id="creators">
+    <div class="container text-center">
+        <h2>Criadores</h2>
+        <div class="row justify-content-center">
+            <!-- Criador 1 -->
+            <div class="col-md-4 creator-card">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='sign_images/creator1.jpg') }}" class="card-img-top" alt="Foto de Caio Eduardo" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%";>
+                </div>
+            </div>
+            <!-- Criador 2 -->
+            <div class="col-md-4 creator-card">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='sign_images/creator2.jpg') }}" class="card-img-top" alt="Foto de Caio Eduardo" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%";>
+                </div>
+            </div>
+            <!-- Criador 3 -->
+            <div class="col-md-4 creator-card">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='sign_images/creator3.jpg') }}" class="card-img-top" alt="Foto de Caio Eduardo" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%">
+                </div>
+            </div>
+            <!-- Criador 4 -->
+            <div class="col-md-4 creator-card">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='sign_images/creator4.jpg') }}" class="card-img-top" alt="Foto de Criador 4" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%">
+
+                </div>
+            </div>
+            <!-- Criador 5 -->
+            <div class="col-md-4 creator-card">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='sign_images/creator5.jpg') }}" class="card-img-top" alt="Foto de Criador 5" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Área de Vídeo para Tradução -->
+<div class="container text-center mt-4" id="translation_section">
+    <h4>Detecção de Libras</h4>
+    <img id="video_feed" src="" style="width: 640px; height: 480px; border: 2px solid black;">
+    <p id="status_text">Status: Aguardando...</p>
+</div>
+
+<!-- Área para Ensinar Sinais -->
+<div class="container text-center mt-4" id="teach_section">
+    <h4>Ensinar Sinais</h4>
+    <button class="btn btn-info" onclick="showSign('oi')">Oi</button>
+    <button class="btn btn-info" onclick="showSign('tudo_bem')">Tudo Bem?</button>
+    <button class="btn btn-info" onclick="showSign('bom_dia')">Bom Dia</button>
+    <div class="mt-3">
+        <img id="sign_image" src="" style="display:none; width: 300px; height: auto; border: 2px solid black;">
+    </div>
+</div>
+
+<script>
+    function startDetection() {
+        console.log("Iniciando detecção...");
+        
+        // Esconder seção de ensino e mostrar apenas tradução
+        document.getElementById("teach_section").style.display = "none";
+        document.getElementById("translation_section").style.display = "block";
+        
+        // Esconde os criadores temporariamente
+        document.getElementById("creators").style.display = "none";
+
+        // Rolagem para a seção de tradução
+        scrollToSection("#translation_section");
+
+        let video = document.getElementById('video_feed');
+        video.src = "/video_feed";
+        document.getElementById('status_text').innerText = "Status: Processando...";
+
+        fetch('/start_detection')
+            .then(response => response.json())
+            .then(data => {
+                console.log("Resposta:", data);
+                document.getElementById('status_text').innerText = "Status: " + data.message;
+            })
+            .catch(error => console.error("Erro ao iniciar detecção:", error));
+    }
+
+    function showTeachOptions() {
+        // Esconder seção de tradução e mostrar apenas ensino
+        document.getElementById("translation_section").style.display = "none";
+        document.getElementById("teach_section").style.display = "block";
+
+        // Esconde os criadores temporariamente
+        document.getElementById("creators").style.display = "none";
+
+        // Rolagem para a seção de ensino
+        scrollToSection("#teach_section");
+    }
+
+    function showSign(sign) {
+        let image = document.getElementById("sign_image");
+        image.src = "/static/sign_images/" + sign + ".jpg";
+        image.style.display = "block";
+    }
+
+    // Função para rolar até a seção específica
+    function scrollToSection(sectionId) {
+        const section = document.querySelector(sectionId);
+        window.scrollTo({
+            top: section.offsetTop,
+            behavior: 'smooth'
+        });
+    }
+
+    // Função para mostrar a seção dos criadores ao voltar para a página inicial
+    window.onload = function() {
+        document.getElementById("creators").style.display = "block";
+    };
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script> 
+</body>
+</html>
